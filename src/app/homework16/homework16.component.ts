@@ -77,7 +77,7 @@ currentUser: IUser;
       }
     });
 
-    if (this.username && this.password && !this.email) {
+    if (this.username && this.password && this.email) {
       const newUser = new User(this.id, this.username, this.email, this.password);
       if (this.arrUsers.length > 0) {
         newUser.id = this.arrUsers.slice(-1)[0].id + 1;
