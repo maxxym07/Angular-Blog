@@ -15,10 +15,7 @@ import { Blog } from "src/app/shared/models/blog.model";
 })
 export class Homework16Component implements OnInit {
   modalRef: BsModalRef;//for modal
-  regName = /^[a-zA-Z]{1,20}$/;
-  regPass=/^[\w][^\(\)\.\\\/\{\}\n\t\*\+\[\]\^\|\?\s\!]{4,10}$/;
-  regEmail = /^[\w_\.]{1,}@\w{1,}\.\w{2,7}\.\w{2,5}|[\w_\.]{1,}@\w{1,}\.\w{2,7}$/;
-
+  
   arrUsers:Array<IUser>=[]
   arrBlogs:Array<IBlog>=[]
   
@@ -27,6 +24,7 @@ export class Homework16Component implements OnInit {
   editStatus: boolean;   ///change status of modal save or edit
   checker: boolean;//check old user
   status: boolean;//check inputs
+currentUser: IUser;
 
   username: string;//for login
   email: string;//for login
@@ -36,8 +34,7 @@ export class Homework16Component implements OnInit {
   postedBy: string;
   message:string;
   id: number = 1;
-  currentUser: IUser;
-
+  
 
   constructor(private mainService:Mainservice, private modalService: BsModalService) { }
 
@@ -80,11 +77,7 @@ export class Homework16Component implements OnInit {
       }
     });
 
-    if (!regLg || !regPs || !regEm) {
-      this.status = true;
-      this.checker = false;
-    }
-    else {
+    if (this.username && this.password && !this.email) {
       const newUser = new User(this.id, this.username, this.email, this.password);
       if (this.arrUsers.length > 0) {
         newUser.id = this.arrUsers.slice(-1)[0].id + 1;
