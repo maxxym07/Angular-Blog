@@ -1,93 +1,93 @@
-<nav class="navbar navbar-light bg-dark">
-    <p class="navbar-brand  text-light">Angular Blog</p>
-    <form class="form-inline">
-        <ng-container *ngIf="!activeStatus; else elseTemplate">
-            <button type="button" class="btn btn-outline-success" (click)="singIn(modal1)">SingIn</button>
-            <button type="button" class="btn btn-outline-primary" (click)="singUp(modal1)">Sing Up</button>
-        </ng-container>
-        <ng-template #elseTemplate>
-            <button type="button" class="btn btn-outline-success" (click)="openModalAdd(modal2)">Add post</button>
-            <button type="button" class="btn btn-warning">{{username}}</button>
-            <button type="button" class="btn btn-outline-primary" (click)="singOut()">Sing Out</button>
-        </ng-template>
-    </form>
-  </nav>
-  
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand">Angular Blog</a>
+  <form class="form-inline">
+    <ng-container *ngIf="!signStatus; else elseTemplate">
+      <button type="button" class="btn btn-outline-success" (click)="signIn(modal1)">Sign In</button>
+      <button type="button" class="btn btn-outline-primary" (click)="signUp(modal1)">Sign Up</button>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <button type="button" class="btn btn-outline-success" (click)="openModalAdd(modal2)">Add post</button>
+      <button type="button" class="btn btn-warning ">{{username}}</button>
+      <button type="button" class="btn btn-outline-warning" (click)="signOut()">Sign Out</button>
+    </ng-template>
+  </form>
+</nav>
 
-<div class="all-blogs mx-auto">
-    <div class="card bg-white text-dark" *ngFor="let blog of arrBlogs">
-        <div class="card-body d-flex justify-content-between">
-            <div class="information">
-                <h5 class="card-title mb-1">{{blog.topic}}</h5>
-                <p class="card-text text-muted font-weight-bolder">Posted by: {{blog.postedBy}}</p>
-                <p class="card-text">{{blog.message}}</p>
-            </div>
-            <div class="date-and-button mt-4">
-                <p class="card-text"><i class="far fa-clock"></i> {{blog.date|date:'HH:mm, dd.MM.yyyy'}}</p>
-                <div class="buttons mt-5" *ngIf="blog.postedBy==username|| username=='admin'">
-                    <input type="button" value="Edit" class="btn btn-warning" (click)="editBlog(modal2,blog)">
-                    <input type="button" value="Delete" class="btn btn-danger" (click)="deleteBlog(blog)">
-                </div>
-            </div>
+<div class="all_blogs">
+  <div class="card bg-white text-dark" *ngFor="let blog of arrBlogs">
+    <div class="card-body d-flex justify-content-between">
+      <div class="information">
+        <h5 class="card-title mb-1">{{blog.topic}}</h5>
+        <p class="card-text posted">Posted by: {{blog.postedBy}}</p>
+        <p class="card-text">{{blog.message}}</p>
+      </div>
+      <div class="date_and_button mt-4">
+        <p class="card-text"><i class="far fa-clock"></i> {{blog.date | date:'HH:mm, dd.MM.yyyy'}}</p>
+        <div class="buttons mt-5" *ngIf="blog.postedBy==username ||username=='admin'">
+          <input type="button" value="edit" class="btn btn-warning" (click)="editBlog(modal2,blog)">
+          <input type="button" value="delete" class="btn btn-danger" (click)="deleteBlog(blog)">
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
 <ng-template #modal1>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left" [text-content]="!singInStatus ?'Sing In' : 'Sing Up' ">Sing In</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="resetModal()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group" *ngIf="singInStatus">
-            <label for="username">Username:</label>
-            <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username">
-          </div>
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input [(ngModel)]="email" name="email" type="text" class="form-control" id="email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" [(ngModel)]="password" name="password" id="password" class="form-control">
-        </div>
-        <hr>
-        <p class="text-danger" *ngIf="checker">This user is already registered. Please change username or email</p>
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary mt-2 mr-2" (click)="resetModal()">Close</button>
-            <button type="button" class="btn btn-success mt-2" (click)="!singInStatus ? singInUser() :singUpUser()">Submit</button>
-        </div>
-      </form>
-    </div>
-  </ng-template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" [textContent]="!signInStatus ? 'Sign In' : 'Sign Up'">Sign in</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="resetUser()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group" *ngIf="signInStatus">
+        <label for="username">Username:</label>
+        <input [(ngModel)]="username" name="username" type="text" class="form-control" id="username">
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input [(ngModel)]="email" name="email" type="text" class="form-control" id="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input [(ngModel)]="password" name="password" id="password" type="password" class="form-control">
+      </div>
+      <hr>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary mt-2 mr-2" (click)="resetUser()">Close</button>
+        <button type="button" class="btn btn-success mt-2"
+          (click)="!signInStatus ? signInUser() : signUpUser()">Submit</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
 
-
-  <ng-template #modal2>
-    <div class="modal-header">
-      <h4 class="modal-title pull-left" >Add post</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="resetBlog()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input [(ngModel)]="topic" name="topic" type="text" class="form-control" id="title">
-        </div>
-        <div class="form-group">
-          <label for="text">Text:</label>
-          <textarea [(ngModel)]="message" name="message" id="message" class="form-control" style="width: 100%; min-height: 200px;"></textarea>
-        </div>
-        <hr>
-        <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary mt-2 mr-2" (click)="resetBlog()">Close</button>
-            <button type="button" class="btn btn-success mt-2" (click)="submitBlog()" [textContent]="!editStatus ? 'Save' : 'Edit Post'"></button>
-        </div>
-      </form>
-    </div>
-  </ng-template>
+<ng-template #modal2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add post</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="resetBlog()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input [(ngModel)]="topic" name="topic" type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group">
+        <label for="text">Text:</label>
+        <textarea [(ngModel)]="message" name="message" id="text" class="form-control"
+          style="width: 100%; min-height: 200px;"></textarea>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary mt-2 mr-2" (click)="resetBlog()">Close</button>
+        <button type="button" class="btn btn-success mt-2" (click)="submitBlog()"
+          [textContent]="!editStatus ? 'Save' : 'Edit Post'"></button>
+      </div>
+    </form>
+  </div>
+</ng-template>

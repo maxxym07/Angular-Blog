@@ -51,6 +51,7 @@ export class Mainservice {
     this.arrBlogs.splice(index, 1, blog);
   }
 
+
   addUser(user: IUser): void {
     this.arrUsers.push(user);
   }
