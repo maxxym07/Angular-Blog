@@ -67,9 +67,6 @@ currentUser: IUser;
   }
   
   singUpUser(): void{
-    let regLg = this.regName.test(this.username);
-    let regPs = this.regPass.test(this.password);
-    let regEm = this.regEmail.test(this.email);
     this.mainService.getServiseUsers().forEach(a => {
       if (a.username === this.username.toLowerCase() || a.email === this.email.toLowerCase()) {
         this.checker = true;
